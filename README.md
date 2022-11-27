@@ -2,6 +2,12 @@
 
 Automatically open browser when starting development server
 
+## features
+
+1. automatically open browser default localhost
+2. automatically open browser by local ip
+3. support url with path or query
+
 ## Install
 
 ```
@@ -20,7 +26,7 @@ const openBrowser = require('./cjs/index');
 const http = require('node:http');
 
 const OB = new openBrowser({
-  id: true,
+  ip: true,
   port: 3000,
 });
 

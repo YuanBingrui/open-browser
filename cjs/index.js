@@ -1,10 +1,11 @@
 'use strict';
 
 var ip = require('ip');
+var node_path = require('node:path');
+var node_child_process = require('node:child_process');
 var open = require('open');
 var spawn = require('cross-spawn');
 var colors = require('picocolors');
-var child_process = require('child_process');
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -40,8 +41,6 @@ function __spreadArray(to, from, pack) {
  * https://github.com/facebook/create-react-app/blob/master/LICENSE
  *
  */
-// https://github.com/sindresorhus/open#app
-var OSX_CHROME = 'google chrome';
 /**
  * Reads the BROWSER environment variable and decides what to do with it.
  * Returns true if it opened a browser or ran a node.js script, otherwise false.
@@ -74,19 +73,33 @@ function executeNodeScript(scriptPath, url) {
     });
     return true;
 }
+var supportedChromiumBrowsers = [
+    'Google Chrome Canary',
+    'Google Chrome Dev',
+    'Google Chrome Beta',
+    'Google Chrome',
+    'Microsoft Edge',
+    'Brave Browser',
+    'Vivaldi',
+    'Chromium',
+];
 function startBrowserProcess(browser, url) {
     // If we're on OS X, the user hasn't specifically
     // requested a different browser, we can try opening
-    // Chrome with AppleScript. This lets us reuse an
+    // a Chromium browser with AppleScript. This lets us reuse an
     // existing tab when possible instead of creating a new one.
-    var shouldTryOpenChromeWithAppleScript = process.platform === 'darwin' && (browser === '' || browser === OSX_CHROME);
+    var preferredOSXBrowser = browser === 'google chrome' ? 'Google Chrome' : browser;
+    var shouldTryOpenChromeWithAppleScript = process.platform === 'darwin' &&
+        (!preferredOSXBrowser || supportedChromiumBrowsers.includes(preferredOSXBrowser));
     if (shouldTryOpenChromeWithAppleScript) {
         try {
-            // Try our best to reuse existing tab
-            // on OS X Google Chrome with AppleScript
-            child_process.execSync('ps cax | grep "Google Chrome"');
-            child_process.execSync('osascript openChrome.applescript "' + encodeURI(url) + '"', {
-                cwd: __dirname,
+            var ps_1 = node_child_process.execSync('ps cax').toString();
+            var openedBrowser = preferredOSXBrowser && ps_1.includes(preferredOSXBrowser)
+                ? preferredOSXBrowser
+                : supportedChromiumBrowsers.find(function (b) { return ps_1.includes(b); });
+            // Try our best to reuse existing tab with AppleScript
+            node_child_process.execSync("osascript openChrome.applescript \"".concat(encodeURI(url), "\" \"").concat(openedBrowser, "\""), {
+                cwd: node_path.join(__dirname, '../'),
                 stdio: 'ignore',
             });
             return true;
