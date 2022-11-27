@@ -1,6 +1,6 @@
 {
   "name": "@xbaijun/open-browser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Automatically open browser when starting development server",
   "keywords": [
     "open",
@@ -21,7 +21,8 @@
   ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "dec": "tsc --project tsconfig.json --declaration --emitDeclarationOnly"
   },
   "dependencies": {
     "cross-spawn": "^7.0.3",

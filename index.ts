@@ -1,6 +1,13 @@
 import ip from 'ip';
 import {openBrowser as doOpenBrowser} from './openBrowser';
-import {OpenBrowserOptions} from './index.d';
+
+interface OpenBrowserOptions {
+  ip?: boolean;
+  port?: number;
+  url?: string;
+  browser?: string;
+  path?: string;
+}
 
 class OpenBrowser {
   private url: string;
