@@ -1,6 +1,6 @@
 {
   "name": "@xbaijun/open-browser",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Automatically open browser when starting development server",
   "keywords": [
     "open",
