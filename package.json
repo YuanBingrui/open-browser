@@ -1,6 +1,6 @@
 {
   "name": "@xbaijun/open-browser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Automatically open browser when starting development server",
   "keywords": [
     "open",
@@ -9,6 +9,11 @@
     "auto-open"
   ],
   "author": "xiaobaijun <bingrui_yuan0721@163.com>",
+  "homepage": "https://github.com/YuanBingrui/open-browser",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuanBingrui/open-browser"
+  },
   "license": "MIT",
   "main": "index.js",
   "module": "es/index.js",
