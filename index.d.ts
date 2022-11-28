@@ -10,6 +10,6 @@ declare class OpenBrowser {
     private browser;
     constructor(options: OpenBrowserOptions);
     getLocalIP(): string;
-    open(browser?: string, url?: string): void;
+    open(url?: string, browser?: string): void;
 }
 export default OpenBrowser;

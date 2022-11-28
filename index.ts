@@ -21,7 +21,7 @@ class OpenBrowser {
     return getLocalIP();
   }
 
-  open(browser?: string, url?: string) {
+  open(url?: string, browser?: string) {
     url = url || this.url;
     browser = browser || this.browser;
     doOpenBrowser(url, browser);
